@@ -3,7 +3,13 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const productRouter = require('./products/router');
+require('dotenv').config();
+
+const { connect } = require('./lib/mongo');
+connect();
+
+const productRouter = require('./modules/products/router');
+const usersRouter = require('./modules/users/router');
 
 const app = express();
 
@@ -15,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Product module
 app.use('/api/products', productRouter);
+app.use('/api/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
