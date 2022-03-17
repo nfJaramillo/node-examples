@@ -10,6 +10,8 @@ connect();
 
 const productRouter = require('./modules/products/router');
 const usersRouter = require('./modules/users/router');
+const authRouter = require('./modules/auth/router');
+const { checkToken } = require('./middlewares/jwt-validator');
 
 const app = express();
 
@@ -19,9 +21,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Product module
-app.use('/api/products', productRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/products', checkToken, productRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
