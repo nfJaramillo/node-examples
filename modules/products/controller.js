@@ -1,17 +1,29 @@
-const Product = require('./model');
+const { getDbRef } = require('../../lib/mongo');
+const COLLECTION_NAME = 'items';
 
 async function getProducts() {
-  const products = await Product.findAll();
-  return products;
+  try {
+    const products = await getDbRef()
+      .collection(COLLECTION_NAME)
+      .find({})
+      .toArray();
+    return { products };
+  } catch (error) {
+    return { error };
+  }
 }
 
 async function createProduct(product) {
   try {
-    const productSaved = await Product.create(product);
-    return { status: 201, productId: productSaved.id };
+    const result = await getDbRef()
+      .collection(COLLECTION_NAME)
+      .insertOne(product);
+    return {
+      success: true,
+      productId: result.insertId,
+    };
   } catch (error) {
-    console.log(error);
-    return { status: 500, error: error };
+    return { error };
   }
 }
 

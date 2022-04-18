@@ -23,7 +23,13 @@ app.use(express.static(path.join(__dirname, 'front/build')));
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
-app.use('/api/products', checkToken, productRouter);
+//app.use('/api/products', checkToken, productRouter); uncomment this line and comment the next one.
+app.use('/api/products', productRouter);
+
+app.get('*', (req, res) => {
+  console.log(path.join(__dirname, 'front/build/index.html'));
+  res.sendFile(path.join(__dirname, 'front/build/index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
