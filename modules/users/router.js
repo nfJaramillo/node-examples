@@ -18,7 +18,7 @@ router.post('/', async function (req, res, next) {
       res.cookie('token', result.token, { httpOnly: true });
       res.status(201).send(result);
     } else {
-      res.status(401).send(result);
+      res.status(500).send(result);
     }
   } catch (error) {
     console.log(error);
