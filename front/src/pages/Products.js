@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from '../components/Card';
 import './Product.scss';
+import {LoginContext} from '../context/LoginContext';
+import  {useContext} from 'react';
 
 export const Products = () => {
   const url = '/api/products';
@@ -10,8 +12,15 @@ export const Products = () => {
     fetchProducts();
   }, []);
 
+  const {login} = useContext(LoginContext);
+
+  const requestOptions = {
+    method: 'GET',
+    headers: { 'Token': login }
+};
+
   const fetchProducts = async () => {
-    const resp = await fetch(url);
+    const resp = await fetch(url, requestOptions);
     const data = await resp.json();
 
     const productsFromBE = data.products.map((resp) => {
