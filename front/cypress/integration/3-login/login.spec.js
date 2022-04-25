@@ -25,6 +25,7 @@ describe('Login', () => {
     cy.get('#password').type('isis3710');
 
     cy.get('.btn.btn-primary').click();
-    //cy.get('logout').should('be.visible');
+    //TODO expect here
   });
+  //Add new test
 });
