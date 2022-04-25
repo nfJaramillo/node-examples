@@ -37,6 +37,9 @@ export const Products = () => {
     <>
       <div className='products'>
         <h1>Products</h1>
+        {!navigator.onLine && (
+          <span className='badge bg-warning text-dark'>You are offline</span>
+        )}
         {products.state === 'done' && (
           <div className='products-card-container'>
             {products.data.map((elm, index) => (
