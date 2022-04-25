@@ -73,14 +73,14 @@ export const Login = () => {
       )}
       {user && (
         <div className='logout-container'>
-          <h1>Logout</h1>
+          <h1 id='logout'>Logout</h1>
           <button className='btn btn-warning' onClick={() => setUser(null)}>
             Logout
           </button>
         </div>
       )}
       <h2>User data</h2>
-      <pre>{user ? JSON.stringify(user) : 'No data'}</pre>
+      <pre id='user-data'>{user ? JSON.stringify(user) : 'No data'}</pre>
     </div>
   );
 };
